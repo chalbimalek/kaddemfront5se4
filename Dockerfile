@@ -1,19 +1,17 @@
-FROM node:14 AS build
+# Use the official Nginx image
+FROM nginx:1.23
 
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
-COPY . .
-RUN npm run build --prod
+# Set the working directory in the container
+WORKDIR /usr/share/nginx/html
 
-FROM nginx:1.21
+# Remove any existing files in the working directory
+RUN rm -rf ./*
 
-COPY --from=build /app/dist/* /usr/share/nginx/html/
+# Copy the Angular build artifacts from the local machine to the Nginx server
+COPY dist/kaddem/ ./
 
-RUN rm /etc/nginx/conf.d/default.conf
+# Copy the custom Nginx configuration file to the appropriate location
+COPY default.conf /etc/nginx/conf.d/default.conf
 
-COPY nginx.conf /etc/nginx/conf.d/
-
+# Expose port 80 for the Nginx server
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
