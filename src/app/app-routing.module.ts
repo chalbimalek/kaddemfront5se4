@@ -9,6 +9,8 @@ import {ContratComponent} from "./components/contrat/contrat.component";
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/etudiant', pathMatch: 'full' },
+
   { path: 'etudiant', component: EtudiantComponent },
   { path: 'sidebar', component: SidebarComponent },
   { path: 'universite', component: UniversiteComponent },
