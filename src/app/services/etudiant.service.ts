@@ -33,6 +33,6 @@ export class EtudiantService {
 
   // Supprime un étudiant par son identifiant
   deleteEtudiant(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/removeEtudiant/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/remove-etudiant/${id}`);
   }
 }
